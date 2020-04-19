@@ -1,0 +1,47 @@
+/** TODO 计算机基础
+1. CPU 能访问的只有内存，访问方式只有一种，那就是内存地址
+
+2. 计算机语言里的地址：变量名、数组名、函数名、对象名   在编译过后都会映射成对应的内存地址，
+    变量（即对应的内存）中存放了内存 address 那么这个变量就是指针，
+    而引用呢，在编译过后直接映射成地址，而不是存地址
+    指针和引用的区别：指针 = FFFFFFFF -> [ FFFFFFFF, "EEEEEEEE(内存地址)"]     引用 = EEEEEEEE -> [ EEEEEEEE, "存放的内容"]
+
+3. 面向对象语言中的概念
+    Identifier 标识符： 自身内存地址 + 所指对象的地址， 即 C 语言中的一级指针
+    Object 对象： 自身内存地址 + 内容
+    由于 JS 是完全面向对象的语言，所以 JS 中 变量名、数组名、函数名 都是标识符（即都是指针）
+*/
+
+/** todo JS 原型链及构造函数相关的知识点
+NativeCode: 汇编（或者其他较低级语言，比如 C，C++），因为汇编可以直接映射成 01 机器码，所以汇编就相当于机器码，以下 NativeCode1 都是同一份代码
+JS 有两种实例类型：1. 函数实例：由 function 关键字定义；2. 普通实例：由 字面量 或者 new 关键字创建
+
+type            .constructor                .prototype                  .__proto__              instanceType
+Function        Function                    [NativeCode1]               [NativeCode1]           function
+Object          Function                    {}                          [NativeCode1]           function
+{}              Object                      undefined                   Object.prototype        new
+Array           Function                    []                          [NativeCode1]           function
+[]              Array                       undefined                   Array.prototype         new
+*/
+
+/* TODO JS 语言基础
+js 是完全面向对象的语言，语言里面的所有东西都是对象：
+
+js 原生类：Object、Function、Array、String、Boolean、Number、Date、RegExp、Error、SyntaxError
+js 内建类：Global、Math、Arguments                                              // 内建类是由原生类组合而成的类
+js 宿主对象：window、navigator、screen、history、location、event、document        // 指由 js 运行宿主提供的对象，Web 的话就是浏览器提供的对象
+js 自定义类：
+
+js 中的继承就是用我梦寐以求的组合来实现的，不过 js 中一个函数就是一个类会让人有点费解
+JavaScript中的类都是以函数的形式进行声明的。
+    因为JavaScript中没有其他语言中类似class ClassName{ }形式的类声明，
+    而是把函数当作类来使用，函数名就是类名，函数本身就是类的构造函数，
+    并且可以使用new关键字来创建一个实例对象。
+
+
+js 中 null 和 undefined 的区别：null 表示：当前标识符已经跟内存地址绑定，但内存中没有数据 [0000ffff, ""]   undefined 表示：当前这个标识符是什么鬼，我tm都没见过
+js 中除了基本类型，数组  对象  函数 都是传引用的
+js 中同名函数，后定义的会覆盖先定义的
+闭包（closure）,无论该函数被嵌套了多少层，闭包是由函数以及创建该函数的词法环境(就是源代码的上下文环境)组合而成
+*/
+
