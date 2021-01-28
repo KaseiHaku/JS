@@ -97,8 +97,24 @@ let iter = ary[Symbol.iterator]();  // 获取一个原生对象的迭代器，�
 let iter = createNewGenerator();
 let iter = customNewGenerator(ary);
 
-/**  */
+/** export import */
+// named export: 一个模块可以导出 n 个
+export let name1, name2, …, nameN; // 导出变量
+export function functionName(){...} // 导出方法
+export class ClassName {...} // 导出类
+export { name1, name2, …, nameN }; // 导出对象
 
+// default export: 一个模块最多只有 1 个
+export default let name1, name2, …, nameN; // 导出默认变量
+export default function(){...} // 导出默认方法
+export default class {...} // 导出默认类
+export default { name1, name2, …, nameN }; // 导出默认对象
+                                       
+import defaultExport from 'module-name';  // 导入指定模块，默认导出的内容
+import * as myModule from 'module-name';  // 导入指定模块所有的导出，并绑定到 myModule 变量中
+import {export1, export2} from 'module-name';  // 导指定模块指定的导出，并绑定到 export1 和 export2 变量上
+                                       
+                                       
 
 
 
