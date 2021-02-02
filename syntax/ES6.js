@@ -58,12 +58,17 @@ bar(); // 报错，因为函数参数默认是 let 变量，并在出现时声�
 '\u{7A}' === 'z' // true
 
 /** todo 程序走向 */
+for(let key in obj){ // 遍历对象的 key 
+    console.log(key);
+}
+
 var map = new Map();
 map.set('first', 'hello');
 map.set('second', 'world');
-for (let [key, value] of map) {
+for (let [key, value] of map) { // 遍历对象的 key value，对象必须部署 Symbol.iterator 属性
     console.log(key + " is " + value);
 }
+
 // first is hello
 // second is world
 
