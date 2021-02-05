@@ -36,8 +36,10 @@ for(const key in obj){
     console.log(key);
 }
 
-// 遍历具有 Symbol.iterator 属性的 obj
-for(let value of ary){
+/* 遍历具有 Symbol.iterator 属性的 obj, 
+ * 如果 obj 是 Generator 函数运行时生成的 Iterator 对象，那么不需要调用 Generator 的 next 方法就可以完成遍历
+ * */
+for(let value of obj){
     console.log(value);
 }
 
