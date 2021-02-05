@@ -1,10 +1,16 @@
 /******************************** Operators ********************************
- * ===     // 绝对等于（值和类型均相等）
- * !==     // 绝对不等于（值和类型有一个不相等，或两个都不相等）
+ * ===              // 绝对等于（值和类型均相等）
+ * !==              // 绝对不等于（值和类型有一个不相等，或两个都不相等）
+ * ...              // 扩展 或 剩余参数 运算符，用于将一个数组转为用逗号分隔的参数序列
+ * []               // 数组声明 或 动态对象属性名 运算符
+ * =                // 赋值 运算符
  * */
-let originalAry = [1,2,4];
-let copiedAry = [...originalAry];  // 扩展运算符复制数组
 
+
+// ...  spread or rest param operator     
+let originalAry = [1,2,4];
+let copiedAry = [...originalAry];  // 使用 rest 剩余扩展运算符 复制数组
+console.log(1, ...[2, 3, 4], 5); // 1 2 3 4 5;  ... spread 扩展运算符：将一个数组转为用逗号分隔的参数序列
 
 
 /******************************** Keywords ********************************/
@@ -47,7 +53,7 @@ var var0 = false; // var 关键字
 let var3 = 'abc', var4 = 45.6; // let 命令声明的变量，只在 let 命令所在的代码块内有效；let 变量必须先声明后使用，且不允许重复声明
 const PI = 3.1415926; // 声明一个 const 常量，对值类型，不能改变值；对引用类型，不能改变引用地址
 const [a, b, c] = [1, 2, 3]; // 采用解构的方式声明多个 const 变量
-
+const sym = Symbol('foo'); // Synmbol 是一个随机值，可以用作 obj 的 key ，比如 obj[sym] = true;  但是不能使用 obj.sym 因为 obj.sym 相当与 obj['sym']
 function func(){}  // 声明一个 function 变量
 
 
@@ -207,9 +213,14 @@ for(let value of obj){
     console.log(value);
 }
 
-/******************************** Function ********************************/
-function func(var1 = defaultVar1){}
+/******************************** Function ********************************
+ * 函数中间的参数即使设置了 默认值，也是不能省略的，函数参数只有尾部参数可以省略，中间参数如果要使用默认值，那么传入 undefined 即可，不能传入 null
+ * */
+function func(param1 = defaultParam1){} 
 const arrowFunc = () => {};
+
+function func(param1, param2, ...paramN){} // 这里的 ... 叫 rest 参数， rest 参数必须是参数列表中的最后一个参数
+func(1,2, ...['a', 'c']); // 这里的 ... 叫 spread 扩展运算符，将一个数组转为用逗号分隔的参数序列
 
 /******************************** Generator ********************************/
 function* genFunc(){
