@@ -1,26 +1,9 @@
-/******************************** Trap ********************************/
-/** 暂时性死区 */
-/* todo 案例一 */
-var tmp = 123;
-if (true) {
-    tmp = 'abc'; // ReferenceError，因为 let 命令使 tmp 变量绑定到当前语句块，并且 let 变量必须先声明后使用，所以报错
-    let tmp;
-}
-/* todo 案例二 */
-function bar(x = y, y = 2) {
-    return [x, y];
-}
-bar(); // 报错，因为函数参数默认是 let 变量，并在出现时声明，y 在 x 变量之后出现，如果反过来就不报错了
-
-
-
-/** todo Destructuring: 如果解构不成功，变量的值就等于 undefined */
-
 /******************************** Operators ********************************
  * ===     // 绝对等于（值和类型均相等）
  * !==     // 绝对不等于（值和类型有一个不相等，或两个都不相等）
  * */
-
+let originalAry = [1,2,4];
+let copiedAry = [...originalAry];  // 扩展运算符复制数组
 
 
 
@@ -69,7 +52,101 @@ function func(){}  // 声明一个 function 变量
 
 
 import aa from module;
-class Kasei{};
+class Kasei{
+    [dynamicPropertyName]: false;
+    [dynamicFunctionName](){
+        console.log('demo');
+    }
+};
+
+/** 暂时性死区 */
+/* todo 案例一 */
+var tmp = 123;
+if (true) {
+    tmp = 'abc'; // ReferenceError，因为 let 命令使 tmp 变量绑定到当前语句块，并且 let 变量必须先声明后使用，所以报错
+    let tmp;
+}
+/* todo 案例二 */
+function bar(x = y, y = 2) {
+    return [x, y];
+}
+bar(); // 报错，因为函数参数默认是 let 变量，并在出现时声明，y 在 x 变量之后出现，如果反过来就不报错了
+
+/** todo Destructuring: 如果解构不成功，变量的值就等于 undefined */
+
+/******************************** Destructuring 解构 ********************************
+ * 解构中的 小括号() 问题：
+ *  原则：尽量不要在模式中使用 () 
+ *  可以使用圆括号的情况只有一种：赋值语句的非模式部分，可以使用圆括号。 
+ *      let [(a)] = [1]; // 报错，因为有 let 是变量声明语句
+ *      function f([(z)]) { return z; } // 报错，因为 函数参数 也属于变量声明
+ *      ({ p: a }) = { p: 42 };  // 报错，因为不能将模式，或者模式的一部分放在 () 中
+ *      ({ p: (d) } = {}); // 正确，因为 d 不属于模式，而是默认值
+ * */
+
+/** 基本类型 解构成 对象
+ * 数值和布尔值的解构赋值: 解构赋值的规则是，只要等号右边的值不是对象，就先将其转为对象，数值和布尔值都有对应的包装对象，跟 java 中的包装类类似
+ * */
+console.log('\n基本类型 解构成 对象 ==============');
+let {toString: s1} = 123;
+console.log(s1 === Number.prototype.toString); // true
+
+let {toString: s2} = true;
+console.log(s2 === Boolean.prototype.toString); // true
+
+
+/** 字符串 解构成 数组 */
+console.log('\n字符串 解构成 数组 ==============');
+const [a, b, c] = '123'; // a='1'; b='2'; c='3'
+
+
+/** 字符串 解构成 对象 */
+console.log('\n字符串 解构成 对象 ==============');
+let {length : len} = 'hello'; // len=5;
+
+
+/** 数组 解构成 数组 
+ * 只要某种数据结构具有 Iterator 接口，都可以采用数组形式的解构赋值
+ * */
+console.log('\n数组 解构成 数组 ==============');
+let [foo, [[bar], baz]] = [1, [[2], 3]]; // foo=1; bar=2; baz=3
+let [ , , third = 'defaultValue'] = ["foo", "bar", "baz"]; // third="baz"; 解构使用默认值，如果右边不是 === 全等于 undefined，那么默认值不生效
+let [x, , y] = [1, 2, 3]; // x=1; y=3
+let [head, ...tail] = [1, 2, 3, 4]; // head=1; tail=[2,3,4]
+let [x, y, ...z] = ['a']; // x='a'; y=undefined; z=[]
+let [foo] = NaN; // 如果等号的右边不是数组（或者严格地说，不是可遍历的结构，参见《Iterator》一章），那么将会报错
+
+
+
+/** 对象 解构成 对象 */
+console.log('\n对象 解构成 对象 ==============');
+// ({ foo: tty = 'defaultValue', bar: bar } = { foo: "aaa", bar: "bbb" }); // 单单解构
+// let { foo: tty, bar: bar } = { foo: "aaa", bar: "bbb" };  // 解构的同时声明变量； tty 才是解构出来的变量，这种形式用于解构出来的变量名和对象字段名不一致的情况
+
+
+
+/** 数组 解构成 对象 */
+console.log('\n数组 解构成 对象 ==============');
+var arr = [1, 2, 3];
+var {0 : first, [arr.length - 1] : last} = arr; // first=1; last=3;
+
+/** 函数参数的解构赋值 */
+function add([x, y]){
+  return x + y;
+}
+add([1, 2]); // 3
+
+
+function move({x = 0, y = 0} = {}) {
+  return [x, y];
+}
+move({x: 3, y: 8}); // [3, 8]
+move({x: 3}); // [3, 0]
+move({}); // [0, 0]
+move(); // [0, 0]
+
+
+
 
 
 /******************************** FlowControl 流向控制 ********************************/
@@ -117,6 +194,7 @@ map.set('second', 'world');
 for (let [key, value] of map) { // 遍历对象的 key value，对象必须部署 Symbol.iterator 属性
     console.log(key + " is " + value);
 }
+for(let [, value] of map){} // 获取 map 中的 value
 
 // first is hello
 // second is world
@@ -130,7 +208,7 @@ for(let value of obj){
 }
 
 /******************************** Function ********************************/
-function func(){}
+function func(var1 = defaultVar1){}
 const arrowFunc = () => {};
 
 /******************************** Generator ********************************/
@@ -178,8 +256,10 @@ let iter = createNewGenerator();
 let iter = customNewGenerator(ary);
 
 
-/******************************** Module ********************************/
-/** export import */
+/******************************** Module ********************************
+ * 尽量不要同时使用 named export 和 default export
+ * */
+
 // named export: 一个模块可以导出 n 个
 export let name1, name2, …, nameN; // 导出变量
 export function functionName(){...}; // 导出方法
@@ -187,7 +267,7 @@ export class ClassName {...}; // 导出类
 export name1; // 导出单个变量
 export { name1, name2, …, nameN }; // 将多个变量封装成一个 obj，导出
 
-// default export: 一个模块最多只有 1 个
+// default export: 一个模块最多只有 1 个，
 export default expression; // 默认导出 expression 的计算结果
 export default let name1, name2, …, nameN; // 默认导出 变量
 export default function(){...} // 默认导出 方法
@@ -200,6 +280,8 @@ export * from module;
 export {name1, name2, ..., nameN} from module;
 export {default, ...} from module;  // 聚合导出 module 的默认导出
 
+
+// import
 import defaultExport from 'module-name';  // 导入指定模块，默认导出的内容
 import * as myModule from 'module-name';  // 导入指定模块所有的导出，并绑定到 myModule 变量中
 import {export1, export2} from 'module-name';  // 导指定模块指定的导出，并绑定到 export1 和 export2 变量上
