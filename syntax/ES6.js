@@ -74,7 +74,7 @@ class Kasei{};
 
 /******************************** FlowControl 流向控制 ********************************/
 // if
-if (false) {
+if (false) { // 值: 0, -0, 0.0, undefined, null, "", NaN, false 在 if 判断中，都认为是 false
     console.log('if');
 } else if (true) {
     console.log('if else');
