@@ -17,7 +17,7 @@ console.log(1, ...[2, 3, 4], 5); // 1 2 3 4 5;  ... spread 扩展运算符：将
 /** var let */
 var aa;
 var a = void(5); // void 是 JavaScript 中非常重要的关键字，该操作符表示：计算一个表达式，但是不管结果如何都返回 undefined
-typeof "John"                // 返回 string
+
 "attributeName" in obj      // 判断一个对象是否有这个属性
 delete obj.attributeName    // 删除对象的一个属性
 var person = null;           // 值为 null(空), 但类型为对象
@@ -36,6 +36,11 @@ const ary = [1, 2]; // ary 是 存地址变量
 ary[0]= 2; // 该行不报错，因为该行代码并没有修改 ary 变量所保存的地址
 
 
+/** type */
+typeof "John"               // 判断是不是基础类型的或者对象，或者是函数：string, number, boolean, undefined, object(null), function
+'' instanceof String        // 判断某一个对象是不是某一个构造函数的实例。此处为 false，因为 '' 不是通过 String 构造函数生成的
+Object.prototype.toString.call(new f())     // 区分内置对象和自定义对象
+constructorFunc.toString().match(/function(.*)\(.*/)[1].trim() // 根据构造函数名，得到自定义对象的具体的类型的字符串
 
 /******************************** String ********************************/
 /** todo JS 中表示一个字符 */
