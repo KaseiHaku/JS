@@ -1,7 +1,13 @@
 /** TODO Function Definition */
 var func1 = function(x){return x+6;};
 var func2 = (x) => x + 6;
-var func3 = new Function("argName1", "argName2", 'alert("Hello " + sName + sMessage);');
+/* 动态创建函数
+ * 该方法 和 eval() 的区别是: 
+ *  new Function() 出来的 function 都是在全局作用域下的，在 web 环境，那么就是 window 对象下的函数。该方法 对性能影响不大，但是同样存在安全隐患，但是相对 eval() 要好很多
+ *  evel() 则是在当前 运行 evel() 代码时，所在的作用域. 该方法极不推荐使用，严重降低性能 和 存在安全隐患
+ * */
+// 和 
+var func3 = new Function("argName1", "argName2", 'alert("Hello " + sName + sMessage);'); 
 
 
 
