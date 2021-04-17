@@ -1,12 +1,12 @@
 /** TODO Foundamental Concept  */
 // 语法：/模式串/修饰符;
 // 修饰符解释：
-// g 执行全局匹配（查找所有匹配而非在找到第一个匹配后停止）
-// i 表示对大小写不敏感
-// m 表示多行匹配，即以每一行为一个匹配串
-// s
-// u
-// y
+// g    执行全局匹配（查找所有匹配而非在找到第一个匹配后停止）
+// i    表示对大小写不敏感
+// m    表示多行匹配，即以每一行为一个匹配串
+// s    . 包含 \n
+// u    full unicode support
+// y    sticky
 
 /** TODO Create Method */
 var regexp1 = /pattern/igmsuy; // 创建一个正则表达式对象，字面量方式创建
