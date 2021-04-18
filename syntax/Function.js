@@ -12,7 +12,7 @@ var func3 = new Function("argName1", "argName2", 'alert("Hello " + sName + sMess
 /** JS 函数中的 this 对象
  * 总结: 
  *      除了 strict 模式下，全局环境调用 func() 时，this 为 undefine，其他位置谁使用 () 调用函数，this 就指向谁
- *      箭头函数: this 不随调用环境改变而改变，永远指向箭头函数定义时，语法环境中的 this
+ *      箭头函数: this 不随调用环境改变而改变，永远指向箭头函数定义时，语法环境中的 this, 
  * */
 this === window;  // true 相当于 let window = { this }, 因为 js 所有 函数 和 对象 都挂在 window 对象下面
 function thisFunc(){
@@ -21,9 +21,14 @@ function thisFunc(){
 
 let obj = {
     aa: function(){
-        console.log(this);  
+        console.log(this);   // obj.aa()   this === obj
+    }
+    bb: () => console.log(this);  // obj.bb()  this === window 严格模式下 this === undefined 因为箭头函数外层没有函数包裹，所以 this == window， 严格模式下为 undefined
+    cc: function(){
+        return () => console.log(this); // obj.cc()()  this === obj  因为 箭头函数定义时，this 为 cc:function(){} 的 this 
     }
 }
+
 
 
 
