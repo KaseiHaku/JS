@@ -1,4 +1,4 @@
-/** TODO Function Definition */
+/** Function Definition */
 var func1 = function(x){return x+6;};
 var func2 = (x) => x + 6;
 /* 动态创建函数
@@ -6,12 +6,31 @@ var func2 = (x) => x + 6;
  *  new Function() 出来的 function 都是在全局作用域下的，在 web 环境，那么就是 window 对象下的函数。该方法 对性能影响不大，但是同样存在安全隐患，但是相对 eval() 要好很多
  *  evel() 则是在当前 运行 evel() 代码时，所在的作用域. 该方法极不推荐使用，严重降低性能 和 存在安全隐患
  * */
-// 和 
 var func3 = new Function("argName1", "argName2", 'alert("Hello " + sName + sMessage);'); 
 
 
+/** JS 函数中的 this 对象
+ * 总结: 
+ *      除了 strict 模式下，全局环境调用 func() 时，this 为 undefine，其他位置谁使用 () 调用函数，this 就指向谁
+ *      箭头函数: this 不随调用环境改变而改变，永远指向箭头函数定义时，语法环境中的 this
+ * */
+this === window;  // true 相当于 let window = { this }, 因为 js 所有 函数 和 对象 都挂在 window 对象下面
+function thisFunc(){
+    console.log(this);  // 严格模式下为 undefined
+}
 
-/** TODO Closure 闭包
+let obj = {
+    aa: function(){
+        console.log(this);  
+    }
+}
+
+
+
+
+
+
+/** Closure 闭包
  * 指的是函数可以使用函数之外定义的变量，相当于函数的环境变量，但是该环境变量是根据函数创建时的词法环境决定的。
  * 词法环境：就是源代码上下文环境，即函数创建语句所在的代码位置能访问到的所有变量
  * */
@@ -28,7 +47,7 @@ function closureA(){
     closureB(); // 报错，因为 B 函数的定义语句的词法环境无法访问 msg 变量
 }
 
-/** TODO 嵌套函数变量查询机制
+/** 嵌套函数变量查询机制
  * 内嵌函数（嵌套类）:实际上，在 JavaScript 中，所有函数都能访问它们上一层的作用域。JavaScript 支持嵌套函数。嵌套函数可以访问上一层的函数变量。
  * */
 function add() {
@@ -39,7 +58,7 @@ function add() {
     return counter;
 }
 
-/** TODO arguments 对象 */
+/** arguments 对象 */
 function findMax() {
 
     var i, max = 0;
