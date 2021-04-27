@@ -168,7 +168,7 @@ move(); // [0, 0]
 
 /******************************** FlowControl 流向控制 ********************************/
 // if
-if (false) { // 值: 0, -0, 0.0, undefined, null, "", NaN, false 在 if 判断中，都认为是 false
+if (false) { // 值: undefined, null, 0, -0, 0.0, NaN,  "", false 在 if 判断中，都认为是 false
     console.log('if');
 } else if (true) {
     console.log('if else');
