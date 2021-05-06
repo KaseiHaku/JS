@@ -136,9 +136,14 @@ var max = findMax(1, 123, 500, 115, 44, 88);
  * yield 表达式如果用在另一个表达式之中，必须放在圆括号里面。用作函数参数或放在赋值表达式的右边，可以不加括号
  * */
 function* generator(){
-    yield 'hello'; 
-    yield 'world';
-    return 'ending';
+    try{
+        yield 'hello';   // yield 表示屈服，让位，即：让出当前线程的执行权，给另一个线程
+        yield 'world';
+        return 'ending';
+    }
+    catch(){
+    
+    }
 }
 
 /** 定义一个 Generator */
@@ -148,14 +153,25 @@ let state = gen.next();     // {value: 'world', done: false}
 let state = gen.next();     // {value: 'ending', done: true}
 let state = gen.next();     // {value: undefined, done: true}
 let state = gen.next(true);     // next() 方法的参数用于作为上一 yield 表达式的返回值，即：let result = yield xxx;  result = true;
+gen.throw(obj);  // 可以被 generator 内部的 try-catch 捕获
+
+/** Thunk 函数： 
+ * call by value(传值调用): f(x+5);     其中 x+5 在进入函数前就已经计算完毕
+ * call by name(传名调用): f(x+5);      其中传给 函数的是 x+5 整个表达式，只有在实际用到时，才对 x+5 做求值运算
+ * 编译器如何实现 传名调用？
+ *      将参数放到一个临时函数之中，再将这个临时函数传入函数体。这个临时函数就叫做 Thunk 函数
+ *
+ * JS 中的  Thunk 函数定义跟上文的中不同，JS 中 Thunk 函数指：只接受回调函数作为参数的函数，类似于 java 中 Currying(柯里化)
+ * */
 
 
 
 /** async 函数：Generator 函数的语法糖 
  * 将 function* 替换成 async，将 yield 替换成 await
+ * async 函数返回一个 Promise 实例
  * */
 async function asyncFunc(){
-    const a = await getA();
+    const a = await getA(); // await 后面必须是一个 Promise 实例，或者定义了  then() 方法的对象
 }
 
 
