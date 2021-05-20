@@ -8,7 +8,7 @@ JS Reference Type:
     由多个 primitive type 组成
     在计算机内存中的表现形式为  [ FFFFFFFF, "EEEEEEEE(内存地址)"], 其中 EEEEEEEE 是 这个组合出来的 引用类型 在内存中具体的保存位置
 
-代码中的任何内容，都是计算机内存中的一块内存，
+只要对事物进行编码，计算机中的 0101 可以表示任何事物，包括但不限于: 数字，字符，声音，图像，CPU指令 等等
 JS 的形成：
     1. Primitive Type: 不用形成，内存条中对应地址的字节中保存的内容就是数据
     2. Reference Type: 即 Object 类型
