@@ -25,7 +25,7 @@ literal             /                           /                               
 []                  f Array(){}                 undefined                       {constructor: f Array()}
 f aa(){}            f Function(){}              {constructor: f aa()}           f (){ [native dode] }
 
-内建实例：
+内建的 Function 实例：
 Object              f Function(){}              {constructor: f Object()}       f (){ [native dode] }
 Array               f Function(){}              {constructor: f Object()}       f (){ [native dode] } 
 Function            f Function(){}              f (){ [native dode] }           f (){ [native dode] }
