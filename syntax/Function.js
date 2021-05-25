@@ -176,9 +176,43 @@ async function asyncFunc(){
 
 
 
-
-
-
+/** Class
+ * 
+ *
+ */
+/** ES5 */
+function Point(x, y){
+    this.x = x;
+    this.y = y;
+}
+Point.prototype.toString = function(){
+    return '(' + this.x + ',' + this.y + ')';
+}
+var p = new Point(1, 2);
+/** ES6 ES2015
+ * class Point{} 基本等价于 function Point(){}
+ */
+class Point {
+    
+    xx = '另一种属性定义方式';
+    static yy = 1234;
+    
+    /** 在 class 内部的方法，都默认定义在 Point.prototype 上，而不是定义在 class 内部本身 */
+    toString() {
+        return '(' + this.x + ', ' + this.y + ')';
+    }
+    
+    static func(){}
+    
+    /** 
+     * 一般 constructor 会写在第一个，但是实际执行逻辑是：上面的 prototype 相关的定义先执行，在 new 的时候才执行 constructor 函数
+     * 所以这里 constructor 写在最后，用于表示实际执行逻辑的顺序
+     */
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+}
 
 
     
