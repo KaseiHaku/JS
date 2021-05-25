@@ -19,7 +19,7 @@ JS 有两种实例类型：
     2. 函数实例：一块保存 CPU 指令码 的内存空间
         
 
-instanceType        .constructor                .prototype                      .__proto__      
+Instance            .constructor                .prototype                      .__proto__      
 literal             /                           /                               /
 {}                  f Object(){}                undefined                       {constructor: f Object()}                       
 []                  f Array(){}                 undefined                       {constructor: f Array()}
