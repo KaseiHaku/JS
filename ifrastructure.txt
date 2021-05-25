@@ -14,14 +14,21 @@
 
 /** todo JS 原型链及构造函数相关的知识点
 NativeCode: 汇编（或者其他较低级语言，比如 C，C++），因为汇编可以直接映射成 01 机器码，所以汇编就相当于机器码，以下 NativeCode1 都是同一份代码
-JS 有两种实例类型：1. 函数实例：由 function 关键字定义；2. 普通实例：由 字面量 或者 new 关键字创建
+JS 有两种实例类型：
+    1. 普通实例：一块保存 数字编码，字符编码，声音编码，其他实例的内存地址(引用)编码 的内存空间
+    2. 函数实例：一块保存 CPU 指令码 的内存空间
+        
 
-type            .constructor                .prototype                  .__proto__              instanceType
-Function        Function                    [NativeCode1]               [NativeCode1]           function
-Object          Function                    {}                          [NativeCode1]           function
-{}              Object                      undefined                   Object.prototype        new
-Array           Function                    []                          [NativeCode1]           function
-[]              Array                       undefined                   Array.prototype         new
+instanceType        .constructor                .prototype                      .__proto__      
+literal             /                           /                               /
+{}                  f Object(){}                undefined                       {constructor: f Object()}                       
+[]                  f Array(){}                 undefined                       {constructor: f Array()}
+f aa(){}            f Function(){}              {constructor: f aa()}           f (){ [native dode] }
+
+内建实例：
+Object              f Function(){}              {constructor: f Object()}       f (){ [native dode] }
+Array               f Function(){}              {constructor: f Object()}       f (){ [native dode] } 
+Function            f Function(){}              f (){ [native dode] }           f (){ [native dode] }
 */
 
 /* TODO JS 语言基础
