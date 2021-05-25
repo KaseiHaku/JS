@@ -16,19 +16,31 @@
 NativeCode: 汇编（或者其他较低级语言，比如 C，C++），因为汇编可以直接映射成 01 机器码，所以汇编就相当于机器码，以下 NativeCode1 都是同一份代码
 JS 有两种实例类型：
     1. 普通实例：一块保存 数字编码，字符编码，声音编码，其他实例的内存地址(引用)编码 的内存空间
+           instance - .constructor -> f Construnctor(){} - .prototype -> PrototypeInstance === {constructor: f Construnctor(), toString: , ... }
+           instance - .__proto__ -> PrototypeInstance       // instance.__proto__ 属性在 ES6 中已经废弃
+           最顶层的 PrototypeInstance 为 Object.prototype
+       
     2. 函数实例：一块保存 CPU 指令码 的内存空间
-        
-
+           funcInstance - .constructor -> function Function(){} - .prototype -> FuncPrototypeInstance === f (){ [native code] }
+           funcInstance - .__proto__ -> FuncPrototypeInstance
+           funcInstance - .prototype -> PrototypeInstance       // 这里的 .prototype 是当前 funcInstance 作为构造函数时，使用的 prototype，而不是 funcInstance 本身的 prototype
+           最顶层的 FuncPrototypeInstance 是 [native code]
+           函数实例 既是 Function.prototype 的实例，也是 Object.prototype 的实例
+       
+    3. JS 中任何实例都有一个 构造函数，       // 实例 的构造函数是 函数实例， 函数实例 的构造函数是 Function 内建函数
+       每一个构造函数都有个 prototype 属性指向 实例原型; 但是
+       
+    
 Instance            .constructor                .prototype                      .__proto__      
 literal             /                           /                               /
 {}                  f Object(){}                undefined                       {constructor: f Object()}                       
 []                  f Array(){}                 undefined                       {constructor: f Array()}
-f aa(){}            f Function(){}              {constructor: f aa()}           f (){ [native dode] }
+f aa(){}            f Function(){}              {constructor: f aa()}           f (){ [native code] }
 
 内建的 Function 实例：
-Object              f Function(){}              {constructor: f Object()}       f (){ [native dode] }
-Array               f Function(){}              {constructor: f Object()}       f (){ [native dode] } 
-Function            f Function(){}              f (){ [native dode] }           f (){ [native dode] }
+Object              f Function(){}              {constructor: f Object()}       f (){ [native code] }
+Array               f Function(){}              {constructor: f Object()}       f (){ [native code] } 
+Function            f Function(){}              f (){ [native code] }           f (){ [native code] }
 */
 
 /* TODO JS 语言基础
