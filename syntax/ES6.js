@@ -290,9 +290,10 @@ export class ClassName {...}; // 导出类
 export name1; // 导出单个变量
 export { name1, name2, …, nameN }; // 将多个变量封装成一个 obj，导出
 
-// default export: 一个模块最多只有 1 个，
+// default export: 一个模块最多只有 1 个， 
+// export default expression; 相当于 export default = expression;
 export default expression; // 默认导出 expression 的计算结果
-export default let name1, name2, …, nameN; // 默认导出 变量
+export default var1; // 默认导出 变量
 export default function(){...} // 默认导出 方法
 export default class {...} // 默认导出 类
 export default { name1, name2, …, nameN }; // 将多个变量封装成一个 obj，并 default 导出
