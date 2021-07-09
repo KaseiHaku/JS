@@ -307,7 +307,9 @@ export {default, ...} from module;  // 聚合导出 module 的默认导出
 
 
 // import 
-// import 导入的值都是只读的
+// import 导入的变量都是只读的，
+// 虽然导入的变量都是只读的，不能修改该变量的内容，但是由于 import 导入实际是传引用，所以不妨碍修改引用的引用，
+// 即：importVar.ref = false; 是可以的，仅仅是 importVar = 'xxx'; 不行而已; 类似于 java 中的 lambda 表达式中的变量，需要套一层才能修改
 import defaultExport from 'module-name';  // 导入指定模块，默认导出的内容
 import * as myModule from 'module-name';  // 导入指定模块所有的导出，并绑定到 myModule 变量中，注意这里并不导入 默认导出
 import defaultExport，* as myModule from 'module-name';  // 导入指定模块所有的导出，并绑定到 myModule 变量中，导入 默认导出 绑定到 defaultExport 上
