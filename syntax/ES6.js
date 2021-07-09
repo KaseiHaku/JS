@@ -281,6 +281,7 @@ let iter = customNewGenerator(ary);
 
 /******************************** Module ********************************
  * 尽量不要同时使用 named export 和 default export
+ * import 导入的值都是只读的
  * */
 
 // named export: 一个模块可以导出 n 个
@@ -305,7 +306,8 @@ export {name1, name2, ..., nameN} from module;
 export {default, ...} from module;  // 聚合导出 module 的默认导出
 
 
-// import
+// import 
+// import 导入的值都是只读的
 import defaultExport from 'module-name';  // 导入指定模块，默认导出的内容
 import * as myModule from 'module-name';  // 导入指定模块所有的导出，并绑定到 myModule 变量中，注意这里并不导入 默认导出
 import defaultExport，* as myModule from 'module-name';  // 导入指定模块所有的导出，并绑定到 myModule 变量中，导入 默认导出 绑定到 defaultExport 上
