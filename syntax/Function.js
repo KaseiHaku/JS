@@ -169,10 +169,46 @@ gen.throw(obj);  // 可以被 generator 内部的 try-catch 捕获
 /** async 函数：Generator 函数的语法糖 
  * 将 function* 替换成 async，将 yield 替换成 await
  * async 函数返回一个 Promise 实例
+ * 执行顺序:
+ *  1. async 函数一旦遇到 await 就会先返回，等到异步操作完成，在接着执行函数体内后面的代码
+ *  2. async 函数返回的 Promise 对象，必须等到内部所有 await 命令后面的 Promise 对象执行完，才会发生状态改变，除非遇到 return 语句或者抛出错误。
+ * 原理:
+ *  async 函数的实现原理，就是将 Generator 函数和自动执行器，包装在一个函数里。
  * */
 async function asyncFunc(){
-    const a = await getA(); // await 后面必须是一个 Promise 实例，或者定义了  then() 方法的对象
+    const a = await getA();         // await 后面必须是一个 Promise 实例，或者定义了  then() 方法的对象
+    const b = await 'string';       // await 后面跟一个 原始类型，会自动转成 Promise.resolve('string');
+    const c = await Promise.resolve(false);          // await 表达式的返回值就是 Promise resolve 的参数，所以这里 c === false 
+    await Promise.reject('error');  // await 命令后面的 Promise 对象如果变为 reject 状态，则 reject 的参数会被 catch 方法的回调函数接收到
+                                    // 任何一个 await 语句后面的 Promise 对象变为 reject 状态，那么整个 async 函数都会中断执行
+    
+    
+    
+    /** await 后面 Promise reject 还继续执行 async 函数后续代码的方法 */
+    /* 方案一: try catch 包含 await  */
+    try {
+        await Promise.reject('出错了');
+    } catch(e) {
+    }
+    return await Promise.resolve('hello world');
+    /* 方案二: await 后面的 Promise 对象再跟一个 catch 方法 */
+    await Promise.reject('出错了').catch(e => console.log(e));
+    return await Promise.resolve('hello world');
+    
+    /** async 函数错误处理机制 */
+    return 'string';                // async 函数内部的 return 语句返回的值，会成为 then 方法回调函数的参数
+    
+    throw new Error('error');       // async函数内部抛出错误，会导致返回的 Promise 对象变为 reject 状态。抛出的错误对象会被 catch 方法回调函数接收到 
 }
+
+/* async 函数原理：就是将 Generator 函数和自动执行器，包装在一个函数里 */
+async function func(){args}             // 等同于下面函数
+function func(args){
+    return spawn(function* (){          // 匿名 Generator 函数
+        
+    });
+}
+
 
 
 
