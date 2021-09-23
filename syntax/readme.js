@@ -23,14 +23,14 @@ typeof [];                  // 'object'
 typeof function(){};        // 'function'
 
 // instanceof
-undefined instanceof Undefined;
-null instanceof Null;
+undefined instanceof Undefined;         // error 没有 Undefined 类型
+null instanceof Null;                   // error 没有 Null 类型
 false instanceof Boolean;               // false
 2 instanceof Number;                    // false
 NaN instanceof Number;                  // false
-'str' instanceof String;
-Symbol() instanceof Symbol;
-{} instanceof Object;
+'str' instanceof String;                // false，必须是 new String() 出来的实例才能用 instanceof 判断
+Symbol() instanceof Symbol;              
+{} instanceof Object;                   // true
 [] instanceof Array;                    // true
 function(){} instanceof Function;       // true
 
