@@ -14,21 +14,23 @@ var func3 = new Function("argName1", "argName2", 'alert("Hello " + sName + sMess
  *  什么是执行环境？就是代码实际运行时的环境，即: runtime 而不是 compile
  *
  *  非严格模式：
- *      1. 任何函数体外部的(全局执行环境) this 都 === window
+ *      1. 任何函数体外部的(全局环境) this 都 === window
  *      2. 直接通过 funcName() 来执行函数，那么该函数内部的 this===window;  
  *  
  *  严格模式:
- *      1. 任何函数体外部的(全局执行环境) this 都 === window
+ *      1. 任何函数体外部的(全局环境) this 都 === window
  *      2. 直接通过 funcName() 来执行函数，那么该函数内部的 this===undefined;
  *      3. obj.funcName() 或 funcName.call(obj, arg1, arg2) 或 funcName.apply(obj, [arg1, arg2]) 来执行函数，函数中的 this===obj
  *      4. let newFunc = funcName.bind(obj);  那么 newFunc 函数中的 this 永远 ===obj，无论 newFunc 以什么样的方式被调用。
  *         即使 let newFunc2 = newFunc.bind(obj2);  通过 bind 重新绑定了 obj2，newFunc2 中的 this 还是 ===obj，而不是 ===obj2，因为 bind 只有第一次有效，不能重复 bind
  *      5. 箭头函数: let arrowFunc = ()=>this;
  *          任何函数体外部的(全局环境) 箭头函数 中的 this===window
- *          obj.arrowFunc() 或 arrowFunc.call(obj, arg1, arg2) 或 arrowFunc.apply(obj, [arg1, arg2]) 来执行函数，函数中的 this===封闭词法执行环境中的 this
- *  
- *  如何判断 this 的指向:  
- *      查看 函数 或 箭头函数 的调用代码（注意不是定义代码），箭头函数 继承 外部执行环境中的 this，
+ *          obj.arrowFunc() 或 arrowFunc.call(obj, arg1, arg2) 或 arrowFunc.apply(obj, [arg1, arg2]) 来执行函数，obj 参数将会被忽略，函数中的 this===封闭词法执行环境中的 this
+ *          函数体 内部的 箭头函数 的 this 继承外部函数的 this
+ *
+ *  如何判断 this 指针:
+ *      function 单看调用方式即可
+ *      arrow 先看调用方式，再看 lambda 解释时，外部环境的 this 是什么，因为 js 是逐行解释的
  * */
 this === window;  // true 相当于 let window = { this }, 因为 js 所有 函数 和 对象 都挂在 window 对象下面
 function thisFunc(){
@@ -41,20 +43,17 @@ let obj = {
     }
     bb: () => console.log(this);  // obj.bb()  this === window 严格模式下 this === undefined 因为箭头函数外层没有函数包裹，所以 this == window， 严格模式下为 undefined
     cc: function(){
-        return () => console.log(this); // obj.cc()()  this === obj  因为 箭头函数定义时，this 为 cc:function(){} 的 this 
+        // obj.cc()();              因为 箭头函数定义时，this 为 cc:function(){} 的 this, 即: this===obj
+        // obj.cc.call('aaa')();    这里因为 call 改变了 cc:function(){} 的 this，所以这里 this==='aaa'
+        return () => console.log(this); 
     }
 }
 
 let newArrowFunc = obj.cc;
-newArrowFunc()();       // 这里输出的 this===window，
+newArrowFunc()();       // 这里输出的 this===window，相当于 window.newArrowFunc()();
                         // newArrowFunc() 的 runtime 环境中的 this===window，
                         // 由于 newArrowFunc()() 的 runtime 环境中的 this 继承 newArrowFunc() runtime 环境中的 this
                         // 所以 这里 this===window
-
-
-
-
-
 
 
 /** Closure 闭包
