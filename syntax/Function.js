@@ -10,9 +10,25 @@ var func3 = new Function("argName1", "argName2", 'alert("Hello " + sName + sMess
 
 
 /** JS 函数中的 this 对象
- * 总结: 
- *      除了 strict 模式下，全局环境调用 func() 时，this 为 undefine，其他位置谁使用 () 调用函数，this 就指向谁
- *      箭头函数: this 不随调用环境改变而改变，永远指向箭头函数定义时，语法环境中的 this, 
+ * 总结:
+ *  什么是执行环境？就是代码实际运行时的环境，即: runtime 而不是 compile
+ *
+ *  非严格模式：
+ *      1. 任何函数体外部的(全局执行环境) this 都 === window
+ *      2. 直接通过 funcName() 来执行函数，那么该函数内部的 this===window;  
+ *  
+ *  严格模式:
+ *      1. 任何函数体外部的(全局执行环境) this 都 === window
+ *      2. 直接通过 funcName() 来执行函数，那么该函数内部的 this===undefined;
+ *      3. obj.funcName() 或 funcName.call(obj, arg1, arg2) 或 funcName.apply(obj, [arg1, arg2]) 来执行函数，函数中的 this===obj
+ *      4. let newFunc = funcName.bind(obj);  那么 newFunc 函数中的 this 永远 ===obj，无论 newFunc 以什么样的方式被调用。
+ *         即使 let newFunc2 = newFunc.bind(obj2);  通过 bind 重新绑定了 obj2，newFunc2 中的 this 还是 ===obj，而不是 ===obj2，因为 bind 只有第一次有效，不能重复 bind
+ *      5. 箭头函数: let arrowFunc = ()=>this;
+ *          任何函数体外部的(全局环境) 箭头函数 中的 this===window
+ *          obj.arrowFunc() 或 arrowFunc.call(obj, arg1, arg2) 或 arrowFunc.apply(obj, [arg1, arg2]) 来执行函数，函数中的 this===封闭词法执行环境中的 this
+ *  
+ *  如何判断 this 的指向:  
+ *      查看 函数 或 箭头函数 的调用代码（注意不是定义代码），箭头函数 继承 外部执行环境中的 this，
  * */
 this === window;  // true 相当于 let window = { this }, 因为 js 所有 函数 和 对象 都挂在 window 对象下面
 function thisFunc(){
@@ -28,6 +44,12 @@ let obj = {
         return () => console.log(this); // obj.cc()()  this === obj  因为 箭头函数定义时，this 为 cc:function(){} 的 this 
     }
 }
+
+let newArrowFunc = obj.cc;
+newArrowFunc()();       // 这里输出的 this===window，
+                        // newArrowFunc() 的 runtime 环境中的 this===window，
+                        // 由于 newArrowFunc()() 的 runtime 环境中的 this 继承 newArrowFunc() runtime 环境中的 this
+                        // 所以 这里 this===window
 
 
 
