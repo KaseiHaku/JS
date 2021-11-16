@@ -30,7 +30,7 @@ var func3 = new Function("argName1", "argName2", 'alert("Hello " + sName + sMess
  *
  *  如何判断 this 指针:
  *      function 单看调用方式即可
- *      arrow 先看调用方式，再看 lambda 解释时，外部环境的 this 是什么，因为 js 是逐行解释的
+ *      arrow 先看调用方式，再看 lambda 解释(定义)时，外部环境的 this 是什么，因为 js 是逐行解释的
  * */
 this === window;  // true 相当于 let window = { this }, 因为 js 所有 函数 和 对象 都挂在 window 对象下面
 function thisFunc(){
