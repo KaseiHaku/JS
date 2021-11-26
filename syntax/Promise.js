@@ -27,6 +27,11 @@ Promise.resolve(param);
 Promise.reject(reason); // 同 Promise.resolve();
 
 
+/* 异常处理 */
+new Promise( (resolve, reject)=>reject(2222) )
+    .catch( err => { });
+
+
 /* 不管同步函数 还是 异步函数，都用 Promise 来处理它 */
 let func = ()=>console.log(222);
 let funcPromise = Promise.resolve().then(func);  // 这样 funcPromise 中的值就是 func 的 return value，缺点：func 在本轮事件循环 结束时执行
