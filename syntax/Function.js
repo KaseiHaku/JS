@@ -8,6 +8,13 @@ var func2 = (x) => x + 6;
  * */
 var func3 = new Function("argName1", "argName2", 'alert("Hello " + sName + sMessage);'); 
 
+/* 带默认值的函数 */
+function func(x, y='defaultVal'){}
+function func(x, y=v+1 ){}   // 默认值是表达式，则每次都计算一遍默认值表达式
+
+
+
+
 
 /** JS 函数中的 this 对象
  * 总结:
