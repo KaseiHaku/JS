@@ -225,6 +225,23 @@ for(let value of obj){
     console.log(value);
 }
 
+// 遍历 异步迭代器
+async function* asyncIterator(){
+    yield 1;
+    yield 2;
+}
+
+(async function() {
+  for await (const num of asyncIterator()) {
+    console.log(num);
+    // Expected output: 1
+
+    break; // Closes iterator, triggers return
+  }
+})();
+
+
+
 /******************************** Function ********************************
  * 函数中间的参数即使设置了 默认值，也是不能省略的，函数参数只有尾部参数可以省略，中间参数如果要使用默认值，那么传入 undefined 即可，不能传入 null
  * */
