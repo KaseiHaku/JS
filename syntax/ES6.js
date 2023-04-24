@@ -51,7 +51,7 @@ constructorFunc.toString().match(/function(.*)\(.*/)[1].trim() // 根据构造�
 '\u007A' === 'z' // true
 '\u{7A}' === 'z' // true
 
-const b = `foo${a}bar`;  // ES6 中所有字符串都是用 ` 反引号
+const b = `foo${a}bar`;  // ES6 中所有 模板字符串 都是用 ` 反引号
 
 /******************************** Variable ********************************/
 /** todo Variable: let, const, class 声明的变量不再是 window 对象的属性 */
