@@ -22,14 +22,12 @@ Bob.constructor == Person;
 let methodName = 'getArea';
 class Person6 extends Animal {
     static staticAttribute = `类属性`;
-    dynamicAttribute = `类的实例属性`;
     static staticFunction(){ // 类方法
         this; // 类方法中的 this 指向的是类本身，不是类实例。这跟 java 中不一样
     }
-    dynamicFunction(){ // 实例方法
+   
 
-    }
-
+    dynamicAttribute = `类的实例属性`;
     X: null;
     Y: null;
 
@@ -41,6 +39,10 @@ class Person6 extends Animal {
             descriptor: new Descriptor(), // 每个属性都有各一个描述属性自身的 Descriptor 实例
         };
         return this; // 构造函数默认返回实例对象，当然也可以手动改变，如 return 'string';
+    }
+
+    dynamicFunction(){ // 实例方法
+
     }
 
     toString(){ // 该方法等价于 ES5 中的 Person.prototype.toString
