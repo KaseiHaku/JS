@@ -18,16 +18,28 @@ var Bob = new Person(2, 3);
 Bob.__proto__ = Person.prototype;
 Bob.constructor == Person;
 
-/** ES6 */
+/** ES6 
+ * class 内部函数，最好都使用箭头函数，这样不会出现 函数提取到外部使用时，this 报 undefined 错误
+ */
 let methodName = 'getArea';
 class Person6 extends Animal {
     static staticAttribute = `类属性`;
+    static #pvtAttr = '私有类属性，只能在类内部访问';
     static staticFunction(){ // 类方法
         this; // 类方法中的 this 指向的是类本身，不是类实例。这跟 java 中不一样
     }
+    static #pvtFunc(){
+        // 私有类方法，只能在 类 内部访问
+    }
+    static {
+        // 静态代码块，同 java
+        每个类允许有多个静态块，每个静态块中只能访问之前声明的静态属性
+        静态块内部可以使用类名或this，指代当前类
+    }
    
-
+    
     dynamicAttribute = `类的实例属性`;
+    #pvtDynamicAttribute = '私有实例属性，只能在类内部访问';
     X: null;
     Y: null;
 
@@ -38,10 +50,22 @@ class Person6 extends Animal {
         this.attr = {
             descriptor: new Descriptor(), // 每个属性都有各一个描述属性自身的 Descriptor 实例
         };
+        // ES6 为new命令引入了一个new.target属性，该属性一般用在构造函数之中，返回new命令作用于的那个构造函数。
+        // 如果构造函数不是通过new命令或Reflect.construct()调用的，new.target会返回undefined，因此这个属性可以用来确定构造函数是怎么调用的
+        console.log(new.target);
+        if (new.target === Person6) {
+          throw new Error('本类不能实例化'); // 利用 new.target 实现 java abstract class 
+        }
+
+        
         return this; // 构造函数默认返回实例对象，当然也可以手动改变，如 return 'string';
     }
 
     dynamicFunction(){ // 实例方法
+
+    }
+    
+    #pvtDynamicFunction(){ // 私有实例方法，只能在类内部访问
 
     }
 
@@ -66,6 +90,7 @@ class Person6 extends Animal {
 }
 
 var Bob6 = new Person6(2, 3);
+console.log(Person6.name); // name 属性总是返回紧跟在 class 关键字后面的类名
 
 /* 只使用一次的 class，相当于 java 中的匿名内部类 */
 let person = new class {
