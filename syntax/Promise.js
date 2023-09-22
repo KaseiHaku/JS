@@ -7,6 +7,7 @@ new Promise(function(resolve, reject){
         resolve(333);
     })
     .then(function(resolveCallback){}, function(rejectCallback){})
+    // catch 方法是 .then(null, rejection) 或 .then(undefined, rejection) 的别名，用于指定发生错误时的回调函数
     .catch(function(error){})
     .finally(function(){});
 
