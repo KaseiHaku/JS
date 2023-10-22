@@ -42,6 +42,8 @@ class Person6 extends Animal {
     #pvtDynamicAttribute = '私有实例属性，只能在类内部访问';
     X: null;
     Y: null;
+    get attr(){ /* 相当于 java 中的 getter 方法 */ }
+    set attr(value){ /* 相当于 java 中的 setter 方法 */ }
 
     constructor(x, y){  // 该方法等价于 ES5 中的 Person.prototype.constructor
         super(); // 子类构造函数必须先调用父类构造函数
@@ -72,20 +74,9 @@ class Person6 extends Animal {
     toString(){ // 该方法等价于 ES5 中的 Person.prototype.toString
         return '{ "x": ' + this.x + ', "y": ' + this.y + ' }';
     }
-
-
-    get attr(){
-
-    }
-    set attr(value){
-
-    }
+    
     [methodName](){ // 动态方法名
 
-    }
-
-    static classMethod() {
-        return 'hello';
     }
 }
 
