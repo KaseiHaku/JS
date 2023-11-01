@@ -13,6 +13,9 @@ let copiedAry = [...originalAry];  // 使用 rest 剩余扩展运算符 复制�
 console.log(1, ...[2, 3, 4], 5); // 1 2 3 4 5;  ... spread 扩展运算符：将一个数组转为用逗号分隔的参数序列
 let a = (0, 1+2, 4/2);   // 逗号表达式，只返回最后一个表达式的结果赋值给左边
 
+let originalObj = {a:1, b:2};
+let mergedObj = {...originalObj, c:3}; // ... spread 扩展运算符：将一个对象的字段展开，合并入另一个对象
+
 
 /******************************** Keywords ********************************/
 /** var let */
