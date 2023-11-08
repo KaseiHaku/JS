@@ -97,3 +97,25 @@ let person = new class {
 person.sayName(); // "张三"
 
 
+/** 
+ * 能不使用 extends 就别使用，最好使用组合的模式实现
+ */
+class A {
+    static get attr1(){
+        return 'attr1';
+    }
+    attr2 = 'attr2';
+}
+
+class B {        // 这里使用 组合 的方式，实现继承
+    static #superStaticHolder = A;        // 持有父类的私有静态字段
+    static get attr1(){
+        return #superStaticHolder.attr1;
+    }
+
+    #superInsHolder = new A();        // 持有父类实例的私有字段
+    get attr2(){
+        return #superInsHolder.attr2;
+    }
+}
+
