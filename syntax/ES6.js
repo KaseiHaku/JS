@@ -335,6 +335,7 @@ import * as myModule from 'module-name';  // 导入指定模块所有的导出�
 import defaultExport，* as myModule from 'module-name';  // 导入指定模块所有的导出，并绑定到 myModule 变量中，导入 默认导出 绑定到 defaultExport 上
 import {export1, export2} from 'module-name';  // 导入指定模块指定的导出，并绑定到 export1 和 export2 变量上
 import defaultExport，{export1, export2} from 'module-name';  // 导入指定模块 默认导出 和 指定的导出 的内容，并绑定到 defaultExport， export1 和 export2 变量上
+import {default as defaultExport, export1, export2} from 'module-name';  // ditto
 import 'module-name';  // 仅仅运行 导入模块中 的 global 代码， 但是不导入任何值
 var promise = import("module-name").then( module => {}); // 动态导入，可以进行代码编写                                       
 
