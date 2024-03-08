@@ -255,21 +255,7 @@ function func(param1, param2, ...paramN){} // 这里的 ... 叫 rest 参数， r
 func(1,2, ...['a', 'c']); // 这里的 ... 叫 spread 扩展运算符，将一个数组转为用逗号分隔的参数序列
 
 /******************************** Generator ********************************/
-function* genFunc(){
-    yield expression1;
-    yield expression2;
-}
-
-// async function 等价于 function* 
-async function genFunc(){
-    await expression1;
-    await expression2;
-}
-
-
-
-/** todo iterate 迭代语法 */
-/** ES5 语法：定义一个迭代器生成函数 */
+/** 使用 ES5 语法：定义一个迭代器生成函数 */
 function customNewGenerator(array) {
     var nextIndex = 0;
     return {
@@ -280,9 +266,17 @@ function customNewGenerator(array) {
         }
     };
 }
+let iter = customNewGenerator(ary);
 
+/** 使用 ES6 语法：定义一个迭代器生成函数 */
+function* genFunc(){
+    yield expression1;
+    yield expression2;
+}
+let iter = genFunc(); // 返回一个 迭代器
+iter.next();  // iter.next().value 就是第一个 yield 后面跟的 expression 的值; iter.next().done == false 表示迭代没有结束
+iter.next();  // ditto 返回第二个 yield 后面 expr 的值
 
-/** ES6 语法：定义一个迭代器生成函数 */
 function* createNewGenerator(){
     /** yield 关键字详解
      * result === iterator.next() === {value: val, done: false}
@@ -292,11 +286,13 @@ function* createNewGenerator(){
     let nextParam = yield* [1,2,3]; // yield* 后面必须跟实现了 Iterator 接口的类型
 }
 
-/** 原生迭代器生成函数存在位置 */
-let ary = [1,2,3];
-let iter = ary[Symbol.iterator]();  // 获取一个原生对象的迭代器，相当于上面的迭代器生成函数
-let iter = createNewGenerator();
-let iter = customNewGenerator(ary);
+
+/** async 语法：async function 等价于 function*  */
+async function genFunc(){
+    await expression1;
+    await expression2;
+}
+
 
 
 /******************************** Module ********************************
