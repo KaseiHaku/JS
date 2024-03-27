@@ -20,11 +20,19 @@ function func(param1, param2, ...rest){
 /******************************* 指数运算符 *******************************/
 2**3 == 8
 
-/******************************* 链判断运算符(ES2020) *******************************/
+/******************************* 链判断运算符(ES2020) ********************************
+ * 链判断运算符 ?. 写法：
+ *   - obj?.prop           # 对象属性是否存在
+ *   - obj?.[expr]         # ditto
+ *   - func?.(...args)     # 函数或对象方法是否存在
+ * */
 // 读取 message.body.user.firstName 属性，没有则返回默认值
 const firstNameErr = message.body.user.firstName || 'default';  // 错误写法
 const firstNameCorrect = (message && message.body && message.body.user && message.body.user.firstName) || 'default'; // 正确写法
 const firstNameChain = message?.body?.user?.firstName || 'default'; // 链式写法
+
+
+
 
 /******************************* Null 判断运算符(ES2020) ********************************
  * 只有运算符左侧的值为 null 或 undefined 时，才会返回右侧的值
