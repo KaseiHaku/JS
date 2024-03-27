@@ -4,11 +4,17 @@
 
 /****************************** Symbol 
  * 主要作用是作为其他 obj 的 key，
+ * @trap Symbol 值作为属性名，遍历对象的时候，该属性不会出现在for...in、for...of循环中，也不会被 Object.keys()、Object.getOwnPropertyNames()、JSON.stringify() 返回。
  * @trap Symbol 不是对象，仅仅代表一个 内存地址，即 [address:content] = [symbol:content]
  * */
-let symbol = Symbol('current symbol description, just for reveal, has no practical meaning');
+let symbol = Symbol('current symbol description, just for reveal, has no practical meaning'); // 生成一个新的 Symbol 但是不会登记到全局环境中
 symbol.toString(); // 'Symbol(description)'
 symbol.description; // 'description'
+
+let globalSymbol = Symbol.for('my symbol');  // 在全局环境中寻找一个 description 为 "my symbol" 的 Symbol 返回，如果没有，则在全局环境中登记一个描述为 "my symbol" 的 Symbol
+Symbol.keyFor(globalSymbol);  // 在全局环境中，查找当前 symbol 的描述，并返回，即: 返回 'my symbol'
+Symbol.keyFor(symbol);  // 这里返回 undefined，因为 symbol 不是通过 Symbol.for('xxx') 创建的，不会注册到全局环境中
+
 
 
 /****************************** Proxy
