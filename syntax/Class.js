@@ -1,6 +1,72 @@
+/******************************* JS Object 创建演变过程 *******************************/
 
-/** todo ES6 class */
-/** ES5 */
+/******************************* 字面量(literal) 创建 Object *******************************/
+const obj1 = {
+    key1: 'str',
+    key2: ['str1', 'str2'],
+    key3: function(){},
+    key32(){},
+    key4: () => {},
+    key5: {},
+};
+
+const obj2 = {
+    key1: 'str',
+    key2: ['str1', 'str2'],
+    key3: function(){},
+    key32(){},
+    key4: () => {},
+    key5: {},
+};
+
+/******************************* invoke create function 创建 Object ********************************
+ * literal 创建 object 的缺点:
+ *     - 每定义一个 object，object 中所有 code 都得完整的重写一边
+ *     - 如果要新加一个 height 属性，需要在所有 object 的 code 中新增; 根本记不住哪些 object 是一个类型的，需要添加属性
+ * */
+function createPerson(name){
+    // 创建一个空 obj
+    const obj = {};
+    // 初始化该空 obj 
+    obj.name = name;
+    obj.introduceSelf = function () {
+        console.log(`Hi! I'm ${this.name}.`);
+    };
+    // return 该 obj
+    return obj;
+}
+
+const obj1 = createPerson('1');
+const obj2 = createPerson('2');
+
+
+
+/******************************* 构造函数(constructor) 创建 Object ********************************
+ * invoke create function 创建 Object 的缺点:
+ *     - 有点绕; 需要以下步骤: 创建一个空 obj -> 初始化该空 obj -> return 该 obj
+ *
+ * 什么是 constructor?
+ *     用 new 来调用一个 function，那么该 function 就是 constructor
+ * */
+function Person(name){
+    // 用 new 调用该函数 会自动 创建一个 object 
+    // 该 object 会绑定到 this 关键字上
+    // 运行 contructor 中的代码
+    this.name = name;
+    this.introduceSelf = function () {
+        console.log(`Hi! I'm ${this.name}.`);
+    };
+    // 自动 return 该 object
+}
+
+const obj1 = new Person('1');
+const obj2 = new Person('2');
+
+
+/******************************* 构造函数(constructor) 创建 Object with Prototype ********************************
+ * ES5 = ES2015
+ * 
+ * */
 function Person(x, y){
     constructor = Function; // JS primitive Object
     prototype = {
@@ -18,9 +84,10 @@ var Bob = new Person(2, 3);
 Bob.__proto__ = Person.prototype;
 Bob.constructor == Person;
 
-/** ES6 
- * class 内部函数，最好都使用箭头函数，这样不会出现 函数提取到外部使用时，this 报 undefined 错误
- */
+/******************************* class 创建 Object with Prototype ********************************
+ * ES6 >= ES2016
+ * @trap  class 内部函数，最好都使用箭头函数，这样不会出现 函数提取到外部使用时，this 报 undefined 错误
+ * */
 let methodName = 'getArea';
 class Person6 extends Animal {
     static staticAttribute = `类属性`;
