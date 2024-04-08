@@ -259,7 +259,7 @@ function func(args){
 
 
 /* 并发调用只返回一个的结果，其他的共用第一个的结果 
- * 实现原理: 所有 调用 都返回同一个 Promise 对象 即可
+ * 实现原理: 所有 调用 都返回一个 单例的 Promise 对象作为结果 即可
  * */
 async function inner(){
   await setTimeout(()=> {
@@ -268,29 +268,29 @@ async function inner(){
   return true;
 }
 
-let blockPromise = null;
+let blockSingletonPromiseResult = null;  // 单例的 Promise 结果
 function innerConcurrentBlock(){
-    if(blockPromise){
-        console.log(111111);
-        return blockPromise;
-    }
-    invokeRefreshTokenBlockPromise = new Promise((resolve, reject) => {
-        inner().then(value => {
-            console.log(2222);
-            resolve(value)
-        }).catch(reason => {
-            reject(reason);
-        });
-    }).finally(() => {
-        invokeRefreshTokenBlockPromise = null;
+  if(blockSingletonPromiseResult){
+    console.log(111111);
+    return blockSingletonPromiseResult;
+  }
+  blockSingletonPromiseResult = new Promise((resolve, reject) => {
+    inner().then(value => {
+      console.log(2222);
+      resolve(value)
+    }).catch(reason => {
+      reject(reason);
     });
-    return invokeRefreshTokenBlockPromise;
+  }).finally(() => {
+    blockSingletonPromiseResult = null;
+  });
+  return blockSingletonPromiseResult;
 }
 
 function main(){
-    for(i=0; i<10; i++){
-        innerConcurrentBlock();
-    }
+  for(let i=0; i<10; i++){
+    innerConcurrentBlock();
+  }
 }
 main();
 
