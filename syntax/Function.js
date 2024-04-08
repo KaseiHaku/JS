@@ -216,6 +216,12 @@ gen.throw(obj);  // 可以被 generator 内部的 try-catch 捕获
  *  2. async 函数返回的 Promise 对象，必须等到内部所有 await 命令后面的 Promise 对象执行完，才会发生状态改变，除非遇到 return 语句或者抛出错误。
  * 原理:
  *  async 函数的实现原理，就是将 Generator 函数和自动执行器，包装在一个函数里。
+ * @trap
+ *     - 调用一个 async func() 相当于 new Promise();
+ *       return 后面的值，作为 Promise 的 resolve 值
+ *       throw  后面的值，作为 Promise 的 reject  值 
+ *       如果 return new Promise();  那么 async func() 最终返回值为 Promise().then(promise2 => {}); promise2 为 return 后面的 Promise
+ *
  * */
 async function asyncFunc(){
     const a = await getA();         // await 后面必须是一个 Promise 实例，或者定义了  then() 方法的对象
@@ -251,6 +257,42 @@ function func(args){
     });
 }
 
+
+/* 并发调用只返回一个的结果，其他的共用第一个的结果 
+ * 实现原理: 所有 调用 都返回同一个 Promise 对象 即可
+ * */
+async function inner(){
+  await setTimeout(()=> {
+    console.log(3333);
+  }, 2000);
+  return true;
+}
+
+let blockPromise = null;
+function innerConcurrentBlock(){
+    if(blockPromise){
+        console.log(111111);
+        return blockPromise;
+    }
+    invokeRefreshTokenBlockPromise = new Promise((resolve, reject) => {
+        inner().then(value => {
+            console.log(2222);
+            resolve(value)
+        }).catch(reason => {
+            reject(reason);
+        });
+    }).finally(() => {
+        invokeRefreshTokenBlockPromise = null;
+    });
+    return invokeRefreshTokenBlockPromise;
+}
+
+function main(){
+    for(i=0; i<10; i++){
+        innerConcurrentBlock();
+    }
+}
+main();
 
 
 
