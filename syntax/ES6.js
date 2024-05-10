@@ -300,14 +300,16 @@ async function genFunc(){
  * import 导入的值都是只读的
  * */
 
+
 // named export: 一个模块可以导出 n 个
 export let name1, name2, …, nameN; // 导出变量
+export const name1; // 导出单个变量
 export function functionName(){...}; // 导出方法
 export class ClassName {...}; // 导出类
-export name1; // 导出单个变量
+
 export { name1, name2, …, nameN }; // 将多个变量封装成一个 obj，导出
 
-// default export: 一个模块最多只有 1 个， 
+// Default export: 一个模块最多只有 1 个， 
 // export default expression; 相当于 export default = expression;
 export default expression; // 默认导出 expression 的计算结果
 export default var1; // 默认导出 变量
@@ -316,7 +318,7 @@ export default class {...} // 默认导出 类
 export default { name1, name2, …, nameN }; // 将多个变量封装成一个 obj，并 default 导出
 export {name1, name2 as default}; // name2 为 default 导出
        
-// aggregating export: 聚合导出
+// Aggregating export: 聚合导出
 export * from module; // @trap 它只会重新导出命名导出项，而不会导出默认导出项（Default export）。如果有默认导出项，需要单独导出或使用其他导出语法。
 export {name1, name2, ..., nameN} from module; // 导出 module 中指定的 命名导出
 export {default as moduleA, ...} from module;  // 聚合导出 module 的默认导出
