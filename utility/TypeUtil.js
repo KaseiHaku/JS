@@ -1,4 +1,10 @@
-/** js 变量类型判断工具 */
+/** 
+ * js 变量类型判断工具
+ *    - typeof xxx
+ *    - xxx instanceof String
+ *    - Object.prototype.toString.call(xxx);
+ *    - (42).constructor === Number;
+ * */
 //得到x的类型,返回类型名称
 function getType(x) {
     var str = Object.prototype.toString.call(x);
