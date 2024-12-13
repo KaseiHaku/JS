@@ -90,61 +90,79 @@ Bob.constructor == Person;
  * */
 let methodName = 'getArea';
 class Person6 extends Animal {
-    static staticAttribute = `类属性`;
-    static #pvtAttr = '私有类属性，只能在类内部访问';
-    static staticFunction(){ // 类方法
-        this; // 类方法中的 this 指向的是类本身，不是类实例。这跟 java 中不一样
-    }
-    static #pvtFunc(){
-        // 私有类方法，只能在 类 内部访问
-    }
-    static {
-        // 静态代码块，同 java
-        每个类允许有多个静态块，每个静态块中只能访问之前声明的静态属性
-        静态块内部可以使用类名或this，指代当前类
-    }
-   
-    
-    dynamicAttribute = `类的实例属性`;
-    #pvtDynamicAttribute = '私有实例属性，只能在类内部访问';
-    X: null;
-    Y: null;
-    get attr(){ /* 相当于 java 中的 getter 方法 */ }
-    set attr(value){ /* 相当于 java 中的 setter 方法 */ }
+  /******************************* 类静态属性/函数 *******************************/
+  static #staticPvtAttr = '静态私有类属性，只能在类内部访问';
+  static staticAttr = '静态类属性，可以直接通过 Cls.staticAttr 访问';
+  /**
+   * 静态私有类函数/方法，只能在类内部访问
+   * */
+  static #staticPvtFunc(){
+    // 私有类方法，只能在 类 内部访问
+  }
+  /**
+   * 静态类函数/方法，可以直接通过 Cls.staticFunc 访问
+   * */
+  static staticFunc(){ // 类方法
+    this; // 类方法中的 this 指向的是类本身，不是类实例。这跟 java 中不一样
+  }
 
-    constructor(x, y){  // 该方法等价于 ES5 中的 Person.prototype.constructor
-        super(); // 子类构造函数必须先调用父类构造函数
-        this.x = x;
-        this.y = y;
-        this.attr = {
-            descriptor: new Descriptor(), // 每个属性都有各一个描述属性自身的 Descriptor 实例
-        };
-        // ES6 为new命令引入了一个new.target属性，该属性一般用在构造函数之中，返回new命令作用于的那个构造函数。
-        // 如果构造函数不是通过new命令或Reflect.construct()调用的，new.target会返回undefined，因此这个属性可以用来确定构造函数是怎么调用的
-        console.log(new.target);
-        if (new.target === Person6) {
-          throw new Error('本类不能实例化'); // 利用 new.target 实现 java abstract class 
-        }
+  /**
+   * 静态代码块，同 java
+   * 每个类允许有多个静态块，每个静态块中只能访问之前声明的静态属性
+   * 静态块内部可以使用类名或this，指代当前类
+   * */
+  static {
 
-        
-        return this; // 构造函数默认返回实例对象，当然也可以手动改变，如 return 'string';
-    }
+  }
 
-    dynamicFunction(){ // 实例方法
+  /******************************* 实例属性 *******************************/
+  #insPvtAttr = '私有实例属性，只能在类内部访问';
+  insAttr = '实例属性，可以直接通过 new Cls().insAttr 访问';
 
-    }
-    
-    #pvtDynamicFunction(){ // 私有实例方法，只能在类内部访问
+  /******************************* Getter/Setter *******************************/
+  get insAttr(){ /* 相当于 java 中的 getter 方法 */ }
+  set insAttr(value){ /* 相当于 java 中的 setter 方法 */ }
 
+  /******************************* Constructor *******************************/
+  constructor(x, y){  // 该方法等价于 ES5 中的 Person.prototype.constructor
+    super(); // 子类构造函数必须先调用父类构造函数
+    this.attr = {
+      descriptor: new Descriptor(), // 每个属性都有各一个描述属性自身的 Descriptor 实例
+    };
+    // ES6 为new命令引入了一个new.target属性，该属性一般用在构造函数之中，返回new命令作用于的那个构造函数。
+    // 如果构造函数不是通过new命令或Reflect.construct()调用的，new.target会返回undefined，因此这个属性可以用来确定构造函数是怎么调用的
+    console.log(new.target);
+    if (new.target === Cls) {
+      throw new Error('本类不能实例化'); // 利用 new.target 实现 java abstract class
     }
 
-    toString(){ // 该方法等价于 ES5 中的 Person.prototype.toString
-        return '{ "x": ' + this.x + ', "y": ' + this.y + ' }';
-    }
-    
-    [methodName](){ // 动态方法名
 
-    }
+    return this; // 构造函数默认返回实例对象，当然也可以手动改变，如 return 'string';
+  }
+
+
+
+  /******************************* 实例函数 *******************************/
+  /**
+   * 私有实例方法，只能在类内部访问
+   * */
+  #pvtInsFunc(){
+
+  }
+  /**
+   * 实例函数/方法
+   * */
+  insFunc(){
+
+  }
+
+  toString(){ // 该方法等价于 ES5 中的 Person.prototype.toString
+      return '{ "x": ' + this.x + ', "y": ' + this.y + ' }';
+  }
+  
+  [methodName](){ // 动态方法名
+
+  }
 }
 
 var Bob6 = new Person6(2, 3);
