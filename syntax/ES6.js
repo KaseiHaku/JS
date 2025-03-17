@@ -143,6 +143,7 @@ let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 };  // x=1, y=2, z={a:3, b:4}
 let { x, ...z, y } = { x: 1, y: 2, a: 3, b: 4 };  // ...z 解构必须是最后一个参数，且同时只能有一个
 let {...z} = null;
 let {...z} = undefined;
+let { x: xx='defaultVal'} = { y: 6 };   // 解构的同时，修改变量名，并赋默认值
 
 // ({ foo: tty = 'defaultValue', bar: bar } = { foo: "aaa", bar: "bbb" }); // 单单解构
 // let { foo: tty, bar: bar } = { foo: "aaa", bar: "bbb" };  // 解构的同时声明变量； tty 才是解构出来的变量，这种形式用于解构出来的变量名和对象字段名不一致的情况
