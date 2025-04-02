@@ -101,8 +101,19 @@ export class Cls extends Object {
    * @param {number} [opt1=1]                 表示 opt1 参数可选，且默认值为 1
    * @param {number} [opt2]                   表示 opt2 参数可选
    * @param {number=} opt2                    同上
+   *
+   * @param {function(string, number): boolean} callback   回调函数
+   *   @param {string} input - 输入数据
+   *   @param {number} count - 处理次数
+   *   @returns {boolean} 处理是否成功
+   *
+   * @param {(input: string, count: number) => Array<string>} cb2 - 处理数据的回调函数
+   *   @param {string} input - 输入数据
+   *   @param {number} count - 处理次数
+   *   @returns {Array<string>} 处理结果
+   *
    * */
-  insFunc(map, obj, obj2, opt1=1, opt2){
+  insFunc(map, obj, obj2, opt1=1, opt2, callback, cb2){
 
   }
 
