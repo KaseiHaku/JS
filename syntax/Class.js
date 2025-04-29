@@ -145,6 +145,10 @@ class Person6 extends Animal {
   /******************************* 实例函数 *******************************/
   /**
    * 私有实例方法，只能在类内部访问
+   * @trap js Function 中的 this 默认绑定到 windows 对象上，而不是当前实例
+   *       推荐使用 () => {} 方式定义实例函数
+   *       如果非要用 function 方式定义函数，那么应该使用 func.apply(), func.call(), func.bind() 方式调用，
+   *       其中 func.bind(thisArg) return 一个新的 function 并绑定 thisArg 到 this 关键字上，调用时，使用 returnFunc() 进行调用，而不是 func()
    * */
   #pvtInsFunc(){
 
