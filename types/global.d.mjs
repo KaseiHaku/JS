@@ -31,9 +31,13 @@ export class Cls extends Object {
   static {
 
     /**
+     * 方式一：
      * @type {Object}                   - 表明当前 obj 变量的类型是 Object
      * @property {number} code          - 表明当前 obj.code 的类型是 number
      * @property {string[]} result      - 表明当前 obj.result 的类型是 string[]
+     * 
+     * 方式二：
+     * @type {{name: string, age: number, isAdmin: boolean}}
      * */
     let obj = /** @lends Object */ {}; // 用于表明当前 literal object 的类型
   }
@@ -46,8 +50,13 @@ export class Cls extends Object {
   insAttr = '实例属性，可以直接通过 new Cls().insAttr 访问';
   /**
    * @type Symbol 表明当前字段是 {@link Symbol} 类型
+   * 
+   * 定义新类型：方式一
    * @typedef Person 定义一个新的类型
    * @property {number} amount 指定类型 Person.amount 的属性
+   * 
+   * 定义新类型：方式二
+   * @typedef {{id:string, age:number}} Person
    * */
   objectId = Symbol('instance unique id');
 
