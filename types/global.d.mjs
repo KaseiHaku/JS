@@ -121,6 +121,8 @@ export class Cls extends Object {
    *   @param {number} count - 处理次数
    *   @returns {Array<string>} 处理结果
    *
+   * @return { {id:string, age:number} | null }  当前方法返回值
+   * @return { Promise<{id:string, age:number}> } Promise 类型的格式
    * */
   insFunc(map, obj, obj2, opt1=1, opt2, callback, cb2){
 
