@@ -37,7 +37,7 @@ export class Cls extends Object {
      * @property {string[]} result      - 表明当前 obj.result 的类型是 string[]
      * 
      * 方式二：
-     * @type {{name: string, age: number, isAdmin: boolean}}
+     * @type { {name: string, age: number, isAdmin: boolean} }
      * */
     let obj = /** @lends Object */ {}; // 用于表明当前 literal object 的类型
   }
@@ -56,7 +56,7 @@ export class Cls extends Object {
    * @property {number} amount 指定类型 Person.amount 的属性
    * 
    * 定义新类型：方式二
-   * @typedef {{id:string, age:number}} Person
+   * @typedef { {id:string, age:number} } Person
    * */
   objectId = Symbol('instance unique id');
 
@@ -116,7 +116,7 @@ export class Cls extends Object {
    *   @param {number} count - 处理次数
    *   @returns {boolean} 处理是否成功
    *
-   * @param {(input: string, count: number) => Array<string>} cb2 - 处理数据的回调函数
+   * @param { (input: string, count: number) => Array<string> } cb2 - 处理数据的回调函数
    *   @param {string} input - 输入数据
    *   @param {number} count - 处理次数
    *   @returns {Array<string>} 处理结果
@@ -131,6 +131,27 @@ export class Cls extends Object {
 
 
 }
+
+
+/**
+ * @typedef { ('red'|'green'|'blue') } ColorEnum      # 直接定义一个 Enum 类型
+ * @type { ('red'|'green'|'blue') }
+ * @param { 'red'|'green'|'blue' } color  - 颜色
+ * 
+ * Enum for tri-state values.
+ * @readonly
+ * @enum {string}      # {string} 表示 Enum 的值的类型
+ */
+const ExampleEnum = {
+    RED: 'red',
+    GREEN: 'green',
+    BLUE: 'blue'
+};
+
+/**
+ * @type { 'success'|'info'|'error'|null }    # 指定当前变量只能为指定值
+ * */
+const enumVar = null;
 
 
 class A extends Object {
