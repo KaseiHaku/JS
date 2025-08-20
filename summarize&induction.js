@@ -1,3 +1,26 @@
+/******************************* Trap(巨神坑) ********************************
+ * 
+ * */
+
+/** 
+ * Q: Vue @click 事件配置成 async function，导致无法获取组件中声明的变量是怎么回事？ 
+ * A: 由于 async function 是异步执行的，被执行时可能已经离开了原始的上下文环境，导致无法访问原始上下文环境中的变量。
+ * Resolve1: 使用 箭头函数 绑定函数 上下文为原始上下文环境
+ * Resolve2: 所有用到的变量，作为 async function 参数传入
+ * Resolve3: 使用 闭包来保存 所有用到的变量
+ * */
+<template>
+    <button @click="clickHandler()"/>
+</template>
+<script setup>
+    import PagesImConst from '@/common/constant/PagesImConst.js';
+    async function clickHandler(){
+        console.log(PagesImConst); // 这里 PagesImConst 将会是 undefined
+    }
+</script>
+
+
+
 
 /** todo JS 防止污染全局变量的方法：只创建一个全局变量 kasei，然后将所有自己的变量全放在 kasei 实例的属性中 */
     (function(){
