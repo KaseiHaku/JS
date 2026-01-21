@@ -39,7 +39,7 @@ export class Cls extends Object {
      * 方式二：
      * @type { {name: string, age: number, isAdmin: boolean} }
      * */
-    let obj = /** @lends Object */ {}; // 用于表明当前 literal object 的类型
+    let obj = /** @lends Object.prototype */ {}; // 用于表明当前 literal object 的类型
   }
 
 
