@@ -132,9 +132,11 @@ export class Cls extends Object {
 
 }
 
-
 /**
  * @typedef { ('red'|'green'|'blue') } ColorEnum      # 直接定义一个 Enum 类型
+ * @trap typedef 必须单独一个 jsdoc 块，否则无效
+ * */
+/**
  * @type { ('red'|'green'|'blue') }
  * @param { 'red'|'green'|'blue' } color  - 颜色
  * 
