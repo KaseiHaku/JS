@@ -123,6 +123,16 @@ export class Cls extends Object {
    *   @param {number} count - 处理次数
    *   @returns {Array<string>} 处理结果
    *
+   * 
+   * @return @returns {Object} 用户对象
+   * @property {number} id - 用户唯一ID
+   * @property {string} age - 年龄
+   * 
+   * @return {{
+   *   id:string,       // 用户 ID, 注意这里不能用 - 作为注释，只能用 //    
+   *   age:number,      // 年龄
+   * }}
+   * 
    * @return { {id:string, age:number} | null }  当前方法返回值
    * @return { Promise<{id:string, age:number}> } Promise 类型的格式
    * */
